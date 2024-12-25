@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        nav a.active {
+            color: #007bff;
+        }
+
+        h3.success-message {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            margin-right: 10px;
+        }
+
+        form input {
+            padding: 8px;
+            width: 200px;
+        }
+
+        form button {
+            padding: 8px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .no-employee-message {
+            text-align: center;
+            color: red;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav>
+            <a th:href="@{/homepage}" class="active">Home</a>
+            <a th:href="@{/aboutus}">About</a>
+            <a th:href="@{/contactus}">Contact</a>
+        </nav>
+
+        <!-- Employee Search Form -->
+        <div>
+            <h3 class="success-message">Search Employee</h3>
+            <form th:action="@{/searchbyid}" method="post">
+                <label for="id">Enter Employee ID:</label>
+                <input type="text" id="id" name="id" required />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- Display Employee Details if Employee Found -->
+        <div th:if="${employee != null}">
+            <h3 class="success-message">Employee Details</h3>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>ID</td>
+                    <td><span th:text="${employee.id}"></span></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><span th:text="${employee.name}"></span></td>
+                </tr>
+                <tr>
+                    <td>Mobile</td>
+                    <td><span th:text="${employee.mobile}"></span></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><span th:text="${employee.email}"></span></td>
+                </tr>
+                <tr>
+                    <td>Salary</td>
+                    <td><span th:text="${employee.salary}"></span></td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td><span th:text="${employee.age}"></span></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><span th:text="${employee.gender}"></span></td>
+                </tr>
+                <tr>
+                    <td>Department</td>
+                    <td><span th:text="${employee.department}"></span></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><span th:text="${employee.address}"></span></td>
+                </tr>
+                <tr>
+                    <td>Provident Fund (PF)</td>
+                    <td><span th:text="${employee.pf}"></span></td>
+                </tr>
+                <tr>
+                    <td>House Rent Allowance (HRA)</td>
+                    <td><span th:text="${employee.hra}"></span></td>
+                </tr>
+                <tr>
+                    <td>Dearness Allowance (DA)</td>
+                    <td><span th:text="${employee.da}"></span></td>
+                </tr>
+                <tr>
+                    <td>Special Allowance (SA)</td>
+                    <td><span th:text="${employee.sa}"></span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Message if No Employee Found -->
+        <div th:if="${employee == null}" class="no-employee-message">
+            <p>No employee found with the given ID.</p>
+        </div>
+    </div>
+</body>
+</html>

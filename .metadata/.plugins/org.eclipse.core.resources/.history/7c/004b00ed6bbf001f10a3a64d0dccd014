@@ -1,0 +1,66 @@
+package com.springboot.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.springboot.productentity.ProductEntity;
+import com.springboot.productmodel.ProductModel;
+import com.springboot.productservice.ProductService;
+
+
+
+	@Controller
+	public class ProductController{ 
+	    @Autowired
+	    ProductService productService;
+		@GetMapping("/homepage")
+	    public String home() {
+	        return "home"; 
+	    }
+		@GetMapping("/aboutus")
+	    public String about() {
+	        return "about"; 
+	    }
+		
+		@GetMapping("/contactus")
+	    public String contact() {
+	        return "contact"; 
+	    }
+		
+	    @GetMapping("/productform")
+	    public String add() {
+	        return "add-product"; 
+	    }
+	    
+	    @PostMapping("/saveproduct")
+	    public String saveProduct(ProductModel productModel) {
+	    	productService.saveProductDetails(productModel);
+	    	
+	    	return "success";
+	    }
+	    
+	    @GetMapping("/getallproducts")
+	    public String getAllProducts( Model model ) {
+	        List<ProductEntity> products = productService.getAllProducts();
+            model.addAttribute("products",products);
+	        return "product-list";
+	    }
+
+		@GetMapping("/delete/{id}")
+		public String deleteProductbyID(@PathVariable("id") long id) {
+		{
+			 productService.deleteproductById(id); 
+			 return "redirect:/getallproducts";
+		}
+		
+		
+		}
+
+	    
+	}  

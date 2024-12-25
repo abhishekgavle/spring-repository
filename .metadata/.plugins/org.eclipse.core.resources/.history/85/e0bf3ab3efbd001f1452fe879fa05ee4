@@ -1,0 +1,30 @@
+package com.springboot.productmodel;
+
+import lombok.Builder;
+import lombok.Data;
+@Data
+@Builder
+public class ProductModel {
+
+    private String name;
+    private String brand;
+    private String email;
+    private String madeIn;
+    private double price;
+    private int quantity; 
+    private int discountRate;
+    
+    public static void main(String[] args) {
+       /* ProductModel product = ProductModel.builder()
+                                           .id(101)
+                                           .name("Nokia 1100")
+                                           .brand("Nokia")
+                                           .madeIn("India")
+                                           .price(2250.50)
+                                           .quantity(50) 
+                                           .build();
+        System.out.print(product);
+        */
+    }
+}
+

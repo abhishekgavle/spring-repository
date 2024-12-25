@@ -1,0 +1,86 @@
+package com.employee2.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.employee2.service.EmployeeService;
+import com.employee.model.EmployeeModel; // Correct import for EmployeeModel
+import com.employee.entity.EmployeeEntity; // Correct import for EmployeeEntity
+
+@Controller
+public class EmployeeController { 
+
+    @Autowired
+    private EmployeeService employeeService;
+    
+    @GetMapping("/homepage")
+    public String home() {
+        return "home"; 
+    }
+
+    @GetMapping("/aboutus")
+    public String about() {
+        return "about"; 
+    }
+
+    @GetMapping("/contactus")
+    public String contact() {
+        return "contact"; 
+    }
+    
+    @GetMapping("/employeeform")
+    public String add() {
+        return "add-employee"; 
+    }
+    
+    // Save Employee details
+    @PostMapping("/saveemployee")
+    public String saveEmployee(EmployeeModel employeeModel) {
+        // Save employee details using the service
+        employeeService.saveEmployeeDetails(employeeModel);  
+        return "success"; // Return success page after saving
+    }
+    
+    // Get all Employees
+    @GetMapping("/getallemployee")
+    public String getAllEmployees(Model model) {
+        List<EmployeeEntity> employees = employeeService.getAllEmployees(); // Fetch employees
+        model.addAttribute("employees", employees);  // Pass list of employees to the view
+        return "employee-list";  // Return employee list view
+    }
+    
+    // Delete Employee by ID
+    @GetMapping("/delete/{id}")
+    public String deleteEmployeeById(@PathVariable("id") long id) {
+        employeeService.deleteEmployeeById(id);  // Delete employee by ID
+        return "redirect:/getallemployee";  // Redirect to the employee list page
+    }
+
+    // Mapping to show the search form for searching employee by ID
+    @GetMapping("/searchId")
+    public String searchByIdForm() {
+        return "search";  // Return search form page
+    }
+
+    // Handle the POST request to search for an employee by ID
+    @PostMapping("/searchbyid")
+    public String searchByIdGet(@RequestParam Long id, Model model) {
+        // Fetch employee by ID from the service (returns Optional<EmployeeEntity>)
+        Optional<EmployeeEntity> employee = employeeService.searchById(id);
+        
+        if (employee.isPresent()) {
+            model.addAttribute("employee", employee.get());  // Add employee details to the model
+        } else {
+            model.addAttribute("employee", null);  // If employee not found, add null
+        }
+        return "search";  // Return search result page
+    }
+}

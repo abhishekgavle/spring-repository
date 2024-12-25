@@ -1,0 +1,73 @@
+package com.employee2.service;
+
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.employee.employeemodel.EmployeeModel;
+import com.employee.entity.EmployeeEntity;
+import com.employee.repository.EmployeeRepository;
+
+
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+    
+
+    public void saveEmployeeDetails(EmployeeModel employeeModel) {
+
+        double pf = employeeModel.getSalary() * 0.12;   
+        double hra = employeeModel.getSalary() * 0.20;  
+        double da = employeeModel.getSalary() * 0.10;   
+        double sa = employeeModel.getSalary() * 0.08;   
+
+
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setName(employeeModel.getName());
+        employeeEntity.setEmail(employeeModel.getEmail());
+        employeeEntity.setPhone(employeeModel.getPhone());
+        employeeEntity.setAge(employeeModel.getAge());
+        employeeEntity.setGender(employeeModel.getGender());
+        employeeEntity.setDepartment(employeeModel.getDepartment());
+        employeeEntity.setSalary(employeeModel.getSalary());
+        employeeEntity.setAddress(employeeModel.getAddress());
+
+        employeeEntity.setPf(pf);
+        employeeEntity.setHra(hra);
+        employeeEntity.setDa(da);
+        employeeEntity.setSa(sa);
+
+        employeeRepository.save(employeeEntity);
+    }
+
+
+    public List<EmployeeEntity> getAllEmployees()
+    {
+    	List<EmployeeEntity> employees = employeeRepository.findAll();
+    	return employees;
+    }
+    
+	public EmployeeEntity searchById(Long id) {
+		
+		Optional<EmployeeEntity> optionalData = employeeRepository.findById(id);
+		if(optionalData.isPresent())
+		{
+			EmployeeEntity employee = optionalData.get();
+			return employee;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	public void deleteEmployeeById(Long id) {
+		employeeRepository.deleteById(id);
+	}
+	
+}

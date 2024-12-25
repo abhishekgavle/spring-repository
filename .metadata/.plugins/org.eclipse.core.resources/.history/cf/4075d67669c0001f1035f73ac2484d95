@@ -1,0 +1,83 @@
+package com.employee2.controller;
+
+import java.util.List;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.springboot.productentity.ProductEntity;
+import com.springboot.productmodel.ProductModel;
+import com.springboot.productservice.ProductService;
+
+
+
+@Controller
+public class employeeController{ 
+    @Autowired
+    employeeService employeeService;
+	@GetMapping("/homepage")
+    public String home() {
+        return "home"; 
+    }
+	@GetMapping("/aboutus")
+    public String about() {
+        return "about"; 
+    }
+	@GetMapping("/contactus")
+    public String contact() {
+        return "contact"; 
+    }
+	
+    @GetMapping("/employeeform")
+    public String add() {
+        return "add-employee"; 
+    }
+    
+    
+    @PostMapping("/saveemployee")
+    public String saveemployee(Employee2Model employeeModel) {
+    	employeeService.saveemployeeDetails(employeeModel);
+    	
+    	return "success";
+    }
+    
+    @GetMapping("/getallemployee")
+    public String getAllemployees( Model model ) {
+        List<employeeEntity> employee = employeeService.getAllemployee();
+        model.addAttribute("employee",employee);
+        return "employee-list";
+    }
+    
+    
+    
+
+	@GetMapping("/delete/{id}")
+	public String deleteemployeebyID(@PathVariable("id") long id) 
+	
+	{
+		 employeeService.deleteemployeeById(id); 
+		 return "redirect:/getallemployee";
+	}
+	 // Mapping to show the search form
+    @GetMapping("/searchId")
+    public String searchByIdForm() {
+        return "search";
+    }
+
+    
+    // Handling the POST request for search by ID
+    @PostMapping("/searchbyid")
+    public String searchByIdGet(@RequestParam Long id, Model model) {
+        employeeEntity employee = employeeService.searchById(id);
+        model.addAttribute("employee", employee);
+        return "search";
+    }
+
+}
+

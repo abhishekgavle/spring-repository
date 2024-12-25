@@ -1,0 +1,43 @@
+package com.springboot.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.springboot.productmodel.ProductModel;
+import com.springboot.productservice.ProductService;
+
+	@Controller
+	public class ProductController{ 
+		@GetMapping("/homepage")
+	    public String home() {
+	        return "home"; 
+	    }
+		@GetMapping("/aboutus")
+	    public String about() {
+	        return "about"; 
+	    }
+		
+		@GetMapping("/contactus")
+	    public String contact() {
+	        return "contact"; 
+	    }
+		
+	    @GetMapping("/productform")
+	    public String add() {
+	        return "add-product"; 
+	    }
+	    
+	    @PostMapping("/saveproduct")
+	    public String saveProduct(ProductModel productModel) {
+ productService.saveProductDetails(productModel);
+	    	
+	    	return "success";
+	    }
+	    
+	    @Autowired
+	    ProductService productService;
+
+	    
+	}  

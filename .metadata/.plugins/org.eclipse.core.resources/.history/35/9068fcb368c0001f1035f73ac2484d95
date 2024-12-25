@@ -1,0 +1,10 @@
+package Employeerepository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.springboot.employeeentity.EmployeeEntity;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<EmployeeRepository, Long> {
+    // Add custom query methods if needed
+}

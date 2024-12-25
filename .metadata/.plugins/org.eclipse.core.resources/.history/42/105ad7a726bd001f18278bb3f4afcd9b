@@ -1,0 +1,29 @@
+package com.employee;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+
+
+@Controller
+
+
+public class MyController {
+	@GetMapping("/test")
+	public String getMethodName() {
+		return "myveiw";
+	}
+	
+	@GetMapping("/form")
+	public String form () {
+		return "employee";
+	}
+	
+	@PostMapping("/succes")
+	public String  succes(Employee employee){
+		System.out.println(employee);
+		
+		return "succes";
+	}
+	

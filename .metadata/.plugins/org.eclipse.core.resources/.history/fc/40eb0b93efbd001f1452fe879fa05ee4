@@ -1,0 +1,5 @@
+package com.springboot.productentity;
+
+public class ProductEntity {
+
+}

@@ -1,0 +1,88 @@
+package com.springboot.productservice;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.springboot.productentity.ProductEntity;
+import com.springboot.productmodel.ProductModel;
+import com.springboot.repository.ProductRepository;
+
+@Service
+public class ProductService {
+    @Autowired
+    ProductRepository productRepository;
+    
+     public List<ProductEntity> getAllProducts() {
+
+    	 List<ProductEntity> products=productRepository.findAll();
+    	 return products;
+    	 
+    	 
+	}
+
+    public void saveProductDetails(ProductModel productModel) {
+
+        double stockValue = productModel.getPrice() * productModel.getQuantity();
+        double discountPrice = productModel.getPrice() * productModel.getDiscountRate() / 100;
+        double taxPrice = productModel.getPrice() * 0.18;
+        double offerPrice = productModel.getPrice() - discountPrice;
+        double finalPrice = offerPrice + taxPrice;
+
+        ProductEntity productEntity = new ProductEntity();
+
+        productEntity.setName(productModel.getName());
+        productEntity.setBrand(productModel.getBrand());
+        productEntity.setMadeIn(productModel.getMadeIn());
+        productEntity.setPrice(productModel.getPrice());
+        productEntity.setQuantity(productModel.getQuantity());
+        productEntity.setDiscountRate(productModel.getDiscountRate());
+        productEntity.setDiscountPrice(discountPrice);
+        productEntity.setOfferPrice(offerPrice);
+        productEntity.setFinalPrice(finalPrice);
+        productEntity.setStockValue(stockValue);
+        productEntity.setTaxPrice(taxPrice);
+
+        productRepository.save(productEntity);
+        
+        
+        
+    }
+
+	public void deleteProductById(long id) {
+		 productRepository.deleteById(id);
+		
+	}
+
+	public ProductEntity searchById(Long id) {
+	    Optional<ProductEntity> optionalData = productRepository.findById(id);
+	    if (optionalData.isPresent()) {
+	        ProductEntity product = optionalData.get();
+	        return product;
+	    } else {
+	        return null;
+	    }
+	}
+
+	public ProductEntity editProductDetails(Long id, ProductModel updatedProductModel) {
+	    // Find the product by ID, if not found, throw an exception
+	    ProductEntity prev = productRepository.findById(id)
+	            .orElseThrow(() -> new RuntimeException("Product not found"));
+
+	    // Update the fields of the existing product entity with the new values from the updatedProductModel
+	    prev.setBrand(updatedProductModel.getBrand());
+	    prev.setName(updatedProductModel.getName());
+	    prev.setMadeIn(updatedProductModel.getMadeIn());
+	    prev.setDiscountPrice(updatedProductModel.getDiscountRate());
+	    prev.setPrice(updatedProductModel.getPrice());
+	    prev.setQuantity(updatedProductModel.getQuantity());
+
+	    // Save the updated entity
+	    productRepository.save(prev);
+
+	    return prev; // Return the updated product entity
+	}
+
+}

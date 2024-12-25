@@ -1,0 +1,20 @@
+package com.employee.model; // Ensure you use the correct package
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class EmployeeModel {
+
+    private String name;
+    private int mobile;
+    private String email;
+    private double salary;  // Changed to double for better handling of monetary values
+    private int age;
+    private char gender;
+    private String department;
+    private String address;
+}

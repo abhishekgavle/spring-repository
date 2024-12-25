@@ -1,0 +1,5 @@
+package com.employee2.service;
+
+public class EmployeeRepository {
+
+}

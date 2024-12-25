@@ -1,0 +1,55 @@
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    // Save employee details
+    public void saveEmployeeDetails(EmployeeModel employeeModel) {
+        // Null check for employeeModel to avoid passing a null object
+        if (employeeModel == null) {
+            throw new IllegalArgumentException("EmployeeModel cannot be null");
+        }
+
+        // Calculating benefits
+        double pf = employeeModel.getSalary() * 0.12;   
+        double hra = employeeModel.getSalary() * 0.20;  
+        double da = employeeModel.getSalary() * 0.10;   
+        double sa = employeeModel.getSalary() * 0.08;   
+
+        // Mapping EmployeeModel to EmployeeEntity
+        EmployeeEntity employeeEntity = new EmployeeEntity();  // Corrected to use EmployeeEntity with uppercase 'E'
+        employeeEntity.setName(employeeModel.getName());
+        employeeEntity.setEmail(employeeModel.getEmail());
+        employeeEntity.setPhone(employeeModel.getPhone());
+        employeeEntity.setAge(employeeModel.getAge());
+        employeeEntity.setGender(employeeModel.getGender());
+        employeeEntity.setDepartment(employeeModel.getDepartment());
+        employeeEntity.setSalary(employeeModel.getSalary());
+        employeeEntity.setAddress(employeeModel.getAddress());
+
+        // Setting calculated benefits
+        employeeEntity.setPf(pf);
+        employeeEntity.setHra(hra);
+        employeeEntity.setDa(da);
+        employeeEntity.setSa(sa);
+
+        // Saving the entity to the database
+        employeeRepository.save(employeeEntity);
+    }
+
+    // Getting all employee records
+    public List<EmployeeEntity> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    // Searching employee by ID
+    public Optional<EmployeeEntity> searchById(Long id) {
+        return employeeRepository.findById(id);  // Return Optional<EmployeeEntity>
+    }
+
+    // Deleting employee by ID
+    public void deleteEmployeeById(Long id) {
+        employeeRepository.deleteById(id);
+    }
+}

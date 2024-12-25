@@ -1,0 +1,27 @@
+package Employeemodel;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class employee2Model {
+
+	
+	  private String name;
+	    private  int mobile ;
+	    private String email;
+	    private String salary;
+	    private int age;
+	    private char gender ;
+	    private String department;
+	    private String address;
+		   
+		   
+		   
+		   
+	   
+}
+

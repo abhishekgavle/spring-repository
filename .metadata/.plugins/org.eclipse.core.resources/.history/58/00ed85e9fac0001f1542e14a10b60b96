@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome</title>
+    <style>
+        /* General Reset */
+        body, h1, h2, p, a, form, label, input, textarea, button, ul, li {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Body Styling */
+        body {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        nav {
+            background-color: #0073e6;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Welcome Container Styling */
+        .welcome-container {
+            text-align: center;
+            padding: 2rem;
+            background: #fff;
+            margin: 2rem auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-message {
+            font-size: 2.5rem;
+            color: #0073e6;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-info {
+            font-size: 1rem;
+            color: #333;
+            text-align: left;
+            margin: 1.5rem 0;
+            line-height: 1.8;
+        }
+
+        .product-info ul {
+            list-style-type: disc;
+            margin: 1rem auto;
+            padding-left: 20px;
+        }
+
+        .btn-container {
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            background-color: #0073e6;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #005bb5;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a th:href="@{/homepage}" class="active">Home</a>
+        <a th:href="@{/aboutus}">About</a>
+        <a th:href="@{/contactus}">Contact</a>
+    </nav>
+    <div class="welcome-container">
+        <h1 class="welcome-message">Welcome to My Product Management System</h1>
+        <p class="welcome-description">
+            Easily manage and track your products with our system. Keep your inventory organized and up-to-date.
+        </p>
+        <div class="product-info">
+            <p>Our platform allows you to:</p>
+            <ul>
+                <li>Add new products with details like name, brand, price, and discount.</li>
+                <li>View and update existing product information.</li>
+                <li>Analyze your inventory with ease.</li>
+            </ul>
+            <p>Get started by filling out the product details or exploring other features using the navigation above.</p>
+        </div>
+        <div class="btn-container">
+            <a th:href="@{/productform}" class="btn">Add Product Information</a>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2024 My Product Management System | All Rights Reserved | <a th:href="@{/contactus}">Contact Us</a></p>
+    </footer>
+</body>
+</html>

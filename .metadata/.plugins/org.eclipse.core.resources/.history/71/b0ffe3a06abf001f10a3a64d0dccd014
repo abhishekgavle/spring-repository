@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .table-container {
+            overflow-x: auto;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+            <caption>Product Information</caption>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Brand</th>
+                    <th>Made In</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Discount Rate</th>
+                    <th>Discount Price</th>
+                    <th>Offer Price</th>
+                    <th>Final Price</th>
+                    <th>Stock Value</th>
+                    <th>Tax Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="products : ${products}">
+                    <td th:text="${products.id}"></td>
+                    <td th:text="${products.name}"></td>
+                    <td th:text="${products.brand}"></td>
+                    <td th:text="${products.madeIn}"></td>
+                    <td th:text="${products.price}"></td>
+                    <td th:text="${products.quantity}"></td>
+                    <td th:text="${products.discountRate}"></td>
+                    <td th:text="${products.discountPrice}"></td>
+                    <td th:text="${products.offerPrice}"></td>
+                    <td th:text="${products.finalPrice}"></td>
+                    <td th:text="${products.stockValue}"></td>
+                    <td th:text="${products.taxPrice}"></td>
+                    <td>
+                        <a th:href="@{'/delete/'+ ${products.id}}" class="delete-link">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

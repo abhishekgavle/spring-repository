@@ -1,0 +1,21 @@
+package com.springboot.productentity;
+
+public class ProductEntity {
+    private Long id;
+    private String name;
+    private String brand;
+    private String madeIn;
+    private Double price;
+    private Integer quantity;
+    private Double discountRate;
+    private Double discountPrice; // Ensure this exists!
+    
+    // Getters and Setters
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+}
